@@ -125,7 +125,7 @@ Kami membuat satu lagi worker di dalam folder `worker2` dengan cara yang sama se
                 server 192.168.2.4:80;
         }
 
-3. IP-hash
+3. IP hash
 
         upstream worker {
                 ip_hash;
@@ -136,6 +136,18 @@ Kami membuat satu lagi worker di dalam folder `worker2` dengan cara yang sama se
 
 ### 2. Analisa apa perbedaan antara ketiga algoritma tersebut.
 
+1. Round-robin
+
+Algoritma round-robin termasuk metode yang paling sederhana. Load balancer memilih server di dalam list secara bergantian tanpa menggunakan prioritas apapun.
+
+2. Least-connected
+
+Algoritma least-connected memperhitungkan juga beban yang ditanggung tiap server. Request yang datang kemudian diteruskan ke server yang sedang memiliki koneksi paling sedikit pada waktu itu dengan tujuan supaya beban yang ditanggung tiap server seimbang.
+
+3. IP hash
+
+Algorithma IP hash mengambil IP Address client dan server yang digunakan untuk membuat hash key yang berbeda-beda untuk tiap client. Jadi untuk setiap client, request akan selalu diarahkan ke server yang sama bahkan meskipun session sudah berkhir.
 
 ### 3. Biasanya pada saat membuat website, data user yang sedang login disimpan pada session. Sesision secara default tersimpan pada memory pada sebuah host. Bagaimana cara mengatasi masalah session ketika kita melakukan load balancing?
 
+Untuk mengatasi masalah ini, kita dapat menggunakan sticky session. Sticky session berarti setiap server tidak menyimpan data session-nya sendiri-sendiri tetapi menyimpan data session untuk seluruh client. Setiap perubahan pada session akan diberitahukan dan diteruskan oleh load balancer ke semua server sekaligus. Dengan begini setiap server akan mempunyai copy data session yang sama.
