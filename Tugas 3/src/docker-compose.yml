@@ -1,0 +1,54 @@
+version: '3.3'
+
+services:
+    db:
+        image: mysql:5.7
+        volumes:
+            - dbdata:/var/lib/mysql
+            - ./reservasi.sql:/docker-entrypoint-initdb.d/init.sql
+        restart: always
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: buayakecil
+            MYSQL_DATABASE: reservasi
+            MYSQL_USER: userawan
+            MYSQL_PASSWORD: buayakecil
+    worker1:
+        depends_on:
+            - db
+        build:
+            context: worker1/
+        ports:
+            - "9001:80"
+        environment:
+            DB_HOST: db
+            DB_NAME: reservasi
+            DB_USERNAME: userawan
+            DB_PASSWORD: buayakecil
+    worker2:
+        depends_on:
+            - db
+        build:
+            context: worker2/
+        ports:
+            - "9002:80"
+        environment:
+            DB_HOST: db
+            DB_NAME: reservasi
+            DB_USERNAME: userawan
+            DB_PASSWORD: buayakecil
+    worker3:
+        depends_on:
+            - db
+        build:
+            context: worker3/
+        ports:
+            - "9003:80"
+        environment:
+            DB_HOST: db
+            DB_NAME: reservasi
+            DB_USERNAME: userawan
+            DB_PASSWORD: buayakecil
+volumes:
+    dbdata:
