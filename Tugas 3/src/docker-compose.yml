@@ -7,8 +7,6 @@ services:
             - dbdata:/var/lib/mysql
             - ./reservasi.sql:/docker-entrypoint-initdb.d/init.sql
         restart: always
-        ports:
-            - "3306:3306"
         environment:
             MYSQL_ROOT_PASSWORD: buayakecil
             MYSQL_DATABASE: reservasi
@@ -19,8 +17,6 @@ services:
             - db
         build:
             context: worker1/
-        ports:
-            - "9001:80"
         environment:
             DB_HOST: db
             DB_NAME: reservasi
@@ -31,8 +27,6 @@ services:
             - db
         build:
             context: worker2/
-        ports:
-            - "9002:80"
         environment:
             DB_HOST: db
             DB_NAME: reservasi
@@ -43,12 +37,21 @@ services:
             - db
         build:
             context: worker3/
-        ports:
-            - "9003:80"
         environment:
             DB_HOST: db
             DB_NAME: reservasi
             DB_USERNAME: userawan
             DB_PASSWORD: buayakecil
+    balancer:
+        image: nginx
+        ports:
+            - "9000:80"
+        volumes:
+            - ./default.conf:/etc/nginx/conf.d/default.conf
+        links:
+            - worker1:worker1
+            - worker2:worker2
+            - worker3:worker3
 volumes:
     dbdata:
+
