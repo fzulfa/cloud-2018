@@ -1,3 +1,3 @@
-# cloud-2018
+# Komputasi Awan 2018
 
 Kelompok 12
