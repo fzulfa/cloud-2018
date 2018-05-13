@@ -4,7 +4,10 @@
       become: yes
       apt: name={{ item }} state=latest update_cache=true
       with_items:
-        - mysql-server
+        - nginx
+        - php
+        - composer
+        - git
     - name: Clone repository
       git:
         repo: 'https://github.com/udinIMM/Hackathon.git'

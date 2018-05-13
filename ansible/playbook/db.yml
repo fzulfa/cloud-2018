@@ -4,10 +4,7 @@
       become: yes
       apt: name={{ item }} state=latest update_cache=true
       with_items:
-        - nginx
-        - php
-        - composer
-        - git
+        - mysql-server
     - name: Create a new user
       mysql_user:
         name: regal
