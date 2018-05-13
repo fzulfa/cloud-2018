@@ -1,0 +1,6 @@
+[worker]
+worker1 ansible_host=192.168.33.11 ansible_ssh_user=vagrant ansible_become_pass=vagrant
+worker2 ansible_host=192.168.33.12 ansible_ssh_user=vagrant ansible_become_pass=vagrant
+
+[db]
+db ansible_host=192.168.33.13 ansible_ssh_user=vagrant ansible_become_pass=vagrant

@@ -1,0 +1,16 @@
+- hosts: db
+  tasks:
+    - name: Install database
+      become: yes
+      apt: name={{ item }} state=latest update_cache=true
+      with_items:
+        - nginx
+        - php
+        - composer
+        - git
+    - name: Create a new user
+      mysql_user:
+        name: regal
+        password: bolaubi
+        priv: '*.*:ALL'
+        state: present
