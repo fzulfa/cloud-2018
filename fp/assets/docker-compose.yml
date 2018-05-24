@@ -18,31 +18,40 @@ services:
             - db
         build:
             context: worker1/
+        volumes:
+            - ./repositories:/var/zoya
         environment:
             DB_HOST: db
             DB_NAME: zoya
             DB_USERNAME: ikiuser
             DB_PASSWORD: 123
+            REPO_DIR: /var/zoya
     worker2:
         depends_on:
             - db
         build:
             context: worker1/
+        volumes:
+            - ./repositories:/var/zoya
         environment:
             DB_HOST: db
             DB_NAME: zoya
             DB_USERNAME: ikiuser
             DB_PASSWORD: 123
+            REPO_DIR: /var/zoya
     worker3:
         depends_on:
             - db
         build:
             context: worker1/
+        volumes:
+            - ./repositories:/var/zoya
         environment:
             DB_HOST: db
             DB_NAME: zoya
             DB_USERNAME: ikiuser
             DB_PASSWORD: 123
+            REPO_DIR: /var/zoya
     balancer:
         image: nginx
         ports:
