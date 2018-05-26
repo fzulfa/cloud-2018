@@ -48,7 +48,7 @@ Git-Zoya adalah layanan hosting git repository untuk proyek pengembangan perangk
   
 #### Arsitektur Sistem
 
-![arsitektur](worker1/arsi)
+![arsitektur](worker1/arsi.PNG)
 
 Spesifikasi :
 
